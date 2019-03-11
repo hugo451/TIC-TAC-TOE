@@ -1,0 +1,81 @@
+def displayboard(board):
+    
+    print(' ',board[1],' | ',board[2],' | ',board[3],' ')
+    print('-----------------')
+    print(' ',board[4],' | ',board[5],' | ',board[6],' ')
+    print('-----------------')
+    print(' ',board[7],' | ',board[8],' | ',board[9],' ')
+
+def player_input():
+    player1 = ''
+    
+    while not (player1 == 'X' or player1 == 'O'):
+        player1 = input('Player 1: Do you want to be X or O? ').upper()
+
+    if player1 == 'X':
+        return ('X', 'O')
+    else:
+        return ('O', 'X')
+    
+def checkifwin(board):
+    
+    return (board[1] == board[2] == board[3] == player1 or board[1] == board[2] == board[3] == player2) or (board[4] == board[5] == board[6] == player1 or board[4] == board[5] == board[6] == player2) or (board[7] == board[8] == board[9] == player1 or board[7] == board[8] == board[9] == player2) or (board[1] == board[5] == board[9] == player1 or board[1] == board[5] == board[9] == player2) or (board[5] == board[7] == board[3] == player1 or board[5] == board[7] == board[3] == player2) or (board[1] == board[4] == board[7] == player1 or board[1] == board[4] == board[7] == player2) or (board[5] == board[2] == board[8] == player1 or board[5] == board[2] == board[8] == player2) or (board[6] == board[9] == board[3] == player1 or board[6] == board[9] == board[3] == player2)
+
+def checktie(board):
+    
+    return (board[1] == 'x'.upper() or board[1] == 'o'.upper()) and (board[2] == 'x'.upper() or board[2] == 'o'.upper()) and (board[3] == 'x'.upper() or board[3] == 'o'.upper()) and (board[4] == 'x'.upper() or board[4] == 'o'.upper()) and (board[5] == 'x'.upper() or board[5] == 'o'.upper()) and (board[6] == 'x'.upper() or board[6] == 'o'.upper()) and (board[7] == 'x'.upper() or board[7] == 'o'.upper()) and (board[8] == 'x'.upper() or board[8] == 'o'.upper()) and (board[9] == 'x'.upper() or board[9] == 'o'.upper())
+
+def replay():
+    
+    return input('Do you want to play again? Enter Yes or No: ').lower().startswith('y')
+
+
+
+
+
+
+print('Welcome to tic tac toe!')
+
+while True:
+    board = ['#','1','2','3','4','5','6','7','8','9']
+    player1, player2 = player_input()
+    print((player1,player2))
+    playgame = input('Are you read for the game? yes or no?')
+    if playgame.lower()[0] == 'y':
+        gameon = True
+    else:
+        gameon = False
+    while gameon:
+        #player1's time:
+        print('\n'*100)
+        displayboard(board)
+        marker1 = int(input("Chose a position in the range of 1 to 9, that you see in the board yet: "))
+        board[marker1] = player1
+        if checkifwin(board):
+            displayboard(board)
+            print('Congradulations! Player 1 Won!')
+            break
+        else:
+            if checktie(board):
+                displayboard(board)
+                print('This game was a draw!')
+                break
+            else:
+                #player2's turn
+                print('\n'*100)
+                displayboard(board)
+                marker2 = int(input("Chose a position in the range of 1 to 9, that you see in the board yet: "))
+                board[marker2] = player2
+                if checkifwin(board):
+                    displayboard(board)
+                    print('Congradulations! Player 2 Won!')
+                    break
+                else:
+                    if checktie(board):
+                        displayboard(board)
+                        print('This game was a draw!')
+                        break
+                    else:
+                        continue
+    if not replay():
+        break
